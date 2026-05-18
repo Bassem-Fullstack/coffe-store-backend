@@ -23,7 +23,7 @@ app.use(cors())
 
 app.use(express.json()) // دة عشان سيرفر يعرف يقرأ بيانات بتاعتنا ونعرفة ان بيانات دي جيسون 
 
-connectDB()
+
 
 
 app.get("/" , (req , res) => {
@@ -74,18 +74,35 @@ app.use("/order" , OrderRouters )
 
 
 
+const startServer = async () => {
 
-const Port = process.env.PORT || 5000 
+try{  
+
+await connectDB()
+
+console.log("DB Connected")
+
+// const Port = process.env.PORT || 5000 
 
 
-if(process.env.NODE_ENV !=="production"){
+// if(process.env.NODE_ENV !=="production"){
 
-app.listen(Port , ()=> {
+// app.listen(Port , ()=> {
 
-console.log("server is working well" + Port)
+// console.log("server is working well" + Port)
 
-})}
+// })}
 
+}
+
+catch (err) {
+  console.log(err.message)
+  process.exit(1)
+}
+
+}
+
+startServer()
 
 // Production دة تبع فيركل هو بياخدة ويظبطوة ويعملك سيرفر من عندة 
 
