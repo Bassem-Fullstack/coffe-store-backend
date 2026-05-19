@@ -122,6 +122,11 @@ const filter = {} // احنا عايزينوة ميجبش كل منتجات اح
 if(req.query.category){
   
  filter.category = new mongoose.Types.ObjectId(req.query.category)
+ 
+// const res = await fetch(`${Base_URL}/products?category=${categoryId}`) // الفكرة ببساطة بناخد الايدي بتاع فئة عشان نقدر من خلالها نعرض منتجات بتاعنا
+
+//   المستخدم ضغط على فئة منتج الايدي بتاع فئة منتج اللى مكتوبة في شريط بحث الفروند هيبعتها للباك اند هيقارنهم مع بعض لو لاقهم متساويين هيعرض منتجات بتاع فئة دة و دة الحصل لما مستخدم ضغط على فئة هوت كافية عرضلة منتجات بتاعتها
+
 }
 
 // req.query.category دة اسم فئة انت بتكتبوة عادي من عشوائي دي جاية من بحث شريط بحث كلمة كويري دي اللى هي في يو ار ال فوق في شريط بحث بقولوة بعد كويري اكتب كلمة فئة 
@@ -240,8 +245,76 @@ catch(e){
 }
 
 
-///////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
+
+// ### getCategoriesLimitProducts 
+
+
+const getCategoriesLimitProducts = async(req , res) => {
+
+try{
+
+const categories = await Category.find({})
+
+
+const getData = await Promise.all (
+
+categories.map( async(everyItem)=> {
+
+const products = await Product.find({ category : everyItem._id })
+
+.limit(2).populate("category").populate("createdBy" , "username email role")
+
+return {
+
+ category : everyItem , // اعرضلي الفئة وتفاصيلها ومعاها المنتجات الخاصة بها الخاص بالفئة دي
+
+ products 
+
+}
+
+// هل الايدي في فئة بتاع كل منتج دة متخزن في موديل فئات هو هو نفس الايدي بتاع فئة متخزنة في بروديكتس
+
+// لو نفس الايدي هيرجعلك المنتجات بتاع فئات دي على طول بس انا هنا عامل فونشين دي مخصوص عشان يرجعلي منتجين من كل فئة فأنا هحددلوة اقولوة عايز اتنين بس منتجين من كل فئة وكمان رجعلي تفاصيل المستخدم اليوسير نيم والاميل بتاعة ورجعلي تفاصيل فئات كلها عناصر بتاعتها كل متخزنة في كوليكشن
+
+// في اخر رجعلي اعرضلي بقي كل فئة في اوبجيكت لوحدها ومعاها منتجاتها زاي كدة بص تحتك
+
+// [ find & map الماب والفايند بيرجع مصفوفة في اخر يعني اول حاجة دي مصفوفة كتيرجي وبروديكتس وتاني مصفوفة بتاع فايند دي بترجع منتجات المنتجات دي عبارة عن اوبجكيتات متخزنة جوة مصفوفة اللى هي مصفوفة فايند
+//   {
+//     category: {...},
+//     products: [...]
+//   },
+//   {
+//     category: {...},
+//     products: [...]
+//   }
+// ]
+
+})
+  
+)
+
+
+res.status(200).send(getData)
+
+}
+
+
+catch(e){
+
+res.status(500).send(e.message)
+
+}
+
+
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 // ### updateProduct 
 
@@ -439,7 +512,7 @@ catch(e){
 
 
 
-module.exports ={ createProduct , getAllProducts , getProductById , updateProduct , UpdateImage , deleteProduct }
+module.exports ={ createProduct , getAllProducts , getProductById , getCategoriesLimitProducts , updateProduct , UpdateImage , deleteProduct }
 
 
 

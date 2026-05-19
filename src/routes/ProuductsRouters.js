@@ -5,7 +5,7 @@ const express = require("express")
 
 const router = express.Router()
 
-const {createProduct , getAllProducts , getProductById , updateProduct , deleteProduct , UpdateImage}
+const {createProduct , getAllProducts , getProductById , getCategoriesLimitProducts , updateProduct , deleteProduct , UpdateImage}
 
 = require("../controller/ProductsController")
 
@@ -20,6 +20,8 @@ const validateProduct = require("../validations/vailateProducts")
 router.post("/" , auth , admin , upload.array("images") ,validateProduct, createProduct)
 
 router.get("/" , getAllProducts)
+
+router.get ("/with-product", getCategoriesLimitProducts)
 
 router.get("/:id" , getProductById)
 
