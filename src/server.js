@@ -40,7 +40,7 @@ res.send("API is working well")
 
 const UserRouters = require("../src/routes/userRouters")
 
-app.use(UserRouters)
+app.use( "/users" , UserRouters)
 
 
 //////////////////////////////////////////////////////////////// 
