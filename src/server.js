@@ -18,8 +18,11 @@ const app = express()
 
 const connectDB = require("../src/config/db")
 
-
-app.use(cors())
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}))
 
 app.use(express.json()) // دة عشان سيرفر يعرف يقرأ بيانات بتاعتنا ونعرفة ان بيانات دي جيسون 
 
