@@ -21,9 +21,9 @@ router.get("/" , auth , getCart)
 router.patch("/" , auth , UpdateCart)
 
 
-router.delete("/remove" , auth , removeItem)
+router.delete("/" , auth , removeItem)
 
-router.delete("/" , auth , clearCart)
+router.delete("/clear" , auth , clearCart)
 
 
 module.exports = router
