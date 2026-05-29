@@ -335,6 +335,7 @@ if (!cart) {
 
 await calculateTotal(cart)
 
+await cart.save() 
 
 res.status(200).send(cart)
 
