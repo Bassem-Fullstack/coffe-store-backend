@@ -336,7 +336,7 @@ return res.status(404).send("Product Not Found")
 }
 
 
-const allowedFields  = ["name" , "price" , "description" , "size"  , "category" , "stock"]
+const allowedFields  = ["name" , "price" , "description" , "size"  , "category" , "stock" , "images"]
 
 const update = Object.keys(req.body)
 
