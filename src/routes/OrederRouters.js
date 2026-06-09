@@ -9,7 +9,7 @@ const admin = require("../middleaware/adminRole")
 const auth = require("../middleaware/auth")
 
 
-const { CreateOrder ,  getOrders , getOneOrder  , updateOrder , cancellOrder }
+const { CreateOrder ,  getOrders , getOneOrder , getWholeOrders  , updateOrder , cancellOrder }
 
       = require("../controller/orderController")
 
@@ -18,10 +18,12 @@ const { CreateOrder ,  getOrders , getOneOrder  , updateOrder , cancellOrder }
 
    router.post("/" , auth , CreateOrder )
 
+   router.get("/all" , auth , admin ,getWholeOrders)
+
    router.get("/" , auth , getOrders )
 
    router.get("/:id" , auth , getOneOrder )
-
+    
    router.patch("/:id" , auth , admin , updateOrder )
 
    router.patch("/:id/cancel" , auth , cancellOrder )

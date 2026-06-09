@@ -102,8 +102,42 @@ res.status(500).send(e.message)
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////// 
+
+const getWholeOrders = async (req , res) => {
+
+ try{
+
+  const getManyOrders = await Order.find({}).populate("items.product")
+
+
+   if(!getManyOrders) {
+
+    res.status(400).send("can't get orders")
+
+   }
+  
+  res.status(200).send(getManyOrders)
+
+  }
+
+ catch(e){
+  
+  res.status(500).send(e.message)
+
+ }
+
+} 
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////// 
 
 const getOrders = async( req , res ) => {
 
@@ -285,7 +319,7 @@ res.status(500).send(e.message)
 
 
 
-module.exports = { CreateOrder ,  getOrders , getOneOrder  , updateOrder , cancellOrder }
+module.exports = { CreateOrder ,  getOrders , getOneOrder , getWholeOrders , updateOrder , cancellOrder }
 
 
 
