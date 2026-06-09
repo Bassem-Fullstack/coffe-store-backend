@@ -325,7 +325,7 @@ const getAllUsers = async (req , res) => {
 
 try{
 
-const getUsers = await User.find({}).select("_id name email role") // بقولوة هاتلي بس الاميل والاسم والرول فقط
+const getUsers = await User.find({}).select("_id username email role") // بقولوة هاتلي بس الاميل والاسم والرول فقط
 
 res.status(200).send(getUsers)
 
