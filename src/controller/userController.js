@@ -317,6 +317,39 @@ res.status(400).send(e.message)
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// #### update Admin  
+
+
+const changeRole = async(req , res) => {
+
+try{  
+const user = await User.findById(req.params.id)
+
+if(!user) return res.status(404).send("user is not found")
+
+user.role = req.body.role
+
+await user.save()
+
+res.status(200).send(user)
+
+}
+
+catch(e){
+
+res.status(500).send(e.message)
+
+}
+
+}
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // ### get All users 
@@ -383,4 +416,4 @@ catch(e){
 
 
 
-module.exports =  { registerUser , loginUser ,  profile , logout , updateUser , uploadImages , getAllUsers , DeleteUser} 
+module.exports =  { registerUser , loginUser ,  profile , logout , updateUser , changeRole , uploadImages , getAllUsers , DeleteUser} 

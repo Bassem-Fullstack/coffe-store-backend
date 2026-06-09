@@ -3,7 +3,7 @@
 
 const express = require("express")
 
-const {registerUser, loginUser, profile, logout, updateUser , uploadImages , DeleteUser , getAllUsers}
+const {registerUser, loginUser, profile, logout, changeRole , updateUser , uploadImages , DeleteUser , getAllUsers}
 
 = require("../controller/userController")
 
@@ -35,6 +35,8 @@ router.delete("/logout" , auth , logout)
 router.delete ("/:id" , auth , DeleteUser)
 
 router.patch("/update" , auth ,validateUpdate, updateUser)
+
+router.patch("/:id/role" , auth , changeRole)
 
 router.post("/upload" , auth ,upload.single('image') , uploadImages)
 
