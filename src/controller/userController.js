@@ -317,9 +317,70 @@ res.status(400).send(e.message)
 }
 
 
+///////////////////////////////////////////////////////////////////////////////////////
+
+// ### get All users 
+
+const getAllUsers = async (req , res) => {
+
+try{
+
+const getUsers = await User.find({}).select("_id name email role") // بقولوة هاتلي بس الاميل والاسم والرول فقط
+
+res.status(200).send(getUsers)
+
+}
+
+
+catch(e){
+
+res.status(500).send(e.message)
+
+}
+
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+// ### Delete User
+
+
+
+
+const DeleteUser = async ( req , res) => {
+
+ try { 
+const _Id = req.params.id
+
+const removeUser = await User.findByIdAndDelete(_Id)
+
+if(!removeUser){
+
+  res.status(404).send("user Is not Found")
+
+}
+
+
+res.status(200).send({message : "User has deleted"})
+
+}
+
+catch(e){
+
+ res.status(500).send(e.message)
+
+}
+
+
+}
 
 
 
 
 
-module.exports =  { registerUser , loginUser , profile , logout , updateUser , uploadImages}
+
+
+
+module.exports =  { registerUser , loginUser ,  profile , logout , updateUser , uploadImages , getAllUsers , DeleteUser} 
