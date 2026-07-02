@@ -18,6 +18,8 @@ const {validateRegister , validateLogin , validateUpdate}
 const upload = require("../middleaware/uploadImages")
 
 
+const admin = require("../middleaware/adminRole")
+
 //////////////////////////////////////////////////////////////////////////////// 
 
 // ## login & register
@@ -36,7 +38,7 @@ router.delete ("/:id" , auth , DeleteUser)
 
 router.patch("/update" , auth ,validateUpdate, updateUser)
 
-router.patch("/:id/role" , auth , changeRole)
+router.patch("/:id/role" , auth , admin , changeRole)
 
 router.post("/upload" , auth ,upload.single('image') , uploadImages)
 

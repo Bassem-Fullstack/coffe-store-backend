@@ -93,7 +93,7 @@ const token = jwt.sign(
   
   process.env.JWT_SECRET ,
 
-  {expiresIn : "7d"}
+  {expiresIn : "365d"}
 
 
 )
@@ -325,11 +325,21 @@ res.status(400).send(e.message)
 const changeRole = async(req , res) => {
 
 try{  
+
+
+const { role } = req.body
+
+if (role !== "admin" && role !== "user") {
+  return res.status(400).json({
+    message: "Invalid role"
+  })
+}
+
 const user = await User.findById(req.params.id)
 
 if(!user) return res.status(404).send("user is not found")
 
-user.role = req.body.role
+user.role = role
 
 await user.save()
 
