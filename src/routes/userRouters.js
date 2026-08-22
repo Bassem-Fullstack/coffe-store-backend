@@ -11,22 +11,26 @@ const router = express.Router()
 
 const auth = require("../middleaware/auth")
 
-const {validateRegister , validateLogin , validateUpdate} 
-
-= require("../validations/Joi")
 
 const upload = require("../middleaware/uploadImages")
 
 
 const admin = require("../middleaware/adminRole")
 
+
+const validate = require("../middleaware/validate")
+
+
+const  { loginUser , registerUser } = require("../validations/Joi")
+
+
 //////////////////////////////////////////////////////////////////////////////// 
 
 // ## login & register
 
-router.post("/register" , validateRegister, registerUser)
+router.post("/register" , validate(registerUser) , registerUser)
 
-router.post("/login" , validateLogin, loginUser)
+router.post("/login" , validate(loginUser) , loginUser)
 
 router.get("/profile" , auth , profile)
 
