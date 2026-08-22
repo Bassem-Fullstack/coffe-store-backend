@@ -21,16 +21,16 @@ const admin = require("../middleaware/adminRole")
 const validate = require("../middleaware/validate")
 
 
-const  { loginUser , registerUser } = require("../validations/Joi")
+const  { Register , Login } = require("../middleaware/Joi")
 
 
 //////////////////////////////////////////////////////////////////////////////// 
 
 // ## login & register
 
-router.post("/register" , validate(registerUser) , registerUser)
+router.post("/register" , validate(Register) , registerUser)
 
-router.post("/login" , validate(loginUser) , loginUser)
+router.post("/login" , validate(Login) , loginUser)
 
 router.get("/profile" , auth , profile)
 
